@@ -4,16 +4,16 @@ import { EmailVerificationService } from './email-verification.service';
 
 class SendCodeDto {
   @IsEmail()
-  email: string;
+  email!: string;
 }
 
 class VerifyCodeDto {
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsString()
   @Length(6, 6, { message: 'code must be exactly 6 digits' })
-  code: string;
+  code!: string;
 }
 
 @Controller('auth')
