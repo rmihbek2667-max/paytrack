@@ -19,7 +19,11 @@ async function bootstrap() {
   app.enableCors(); // tighten this to your app's actual origin before production
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  // Explicitly bind to 0.0.0.0 (all network interfaces) -- Railway's external
+  // proxy can't reach the app if it only binds to localhost/IPv6-only, which
+  // is the most common cause of "Application failed to respond" on Railway
+  // even when the app itself logs a clean, successful startup.
+  await app.listen(port, '0.0.0.0');
   console.log(`PayTrack backend running on port ${port}`);
 }
 bootstrap();
